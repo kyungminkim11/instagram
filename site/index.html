@@ -2,161 +2,115 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4efe7" />
-    <meta name="description" content="365 Daily Snap은 서울과 수도권을 중심으로 자연스러운 인물 스냅을 촬영합니다." />
-    <title>365 Daily Snap | Portrait Photography</title>
-    <style>
-      :root { --ink:#191715; --muted:#6f685f; --paper:#f4efe7; --card:#fffdf9; --line:#ddd4c7; --accent:#2f5b50; --accent2:#b96c4c; }
-      * { box-sizing:border-box; }
-      html { scroll-behavior:smooth; }
-      body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter, Pretendard, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.65; }
-      a { color:inherit; }
-      .wrap { width:min(1120px, calc(100% - 36px)); margin:auto; }
-      header { position:sticky; top:0; z-index:20; background:rgba(244,239,231,.9); backdrop-filter:blur(18px); border-bottom:1px solid rgba(25,23,21,.08); }
-      .nav { min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
-      .brand { text-decoration:none; font-weight:800; letter-spacing:-.03em; }
-      .nav-links { display:flex; align-items:center; gap:18px; font-size:14px; }
-      .nav-links a { text-decoration:none; color:var(--muted); }
-      .langs { display:flex; gap:6px; }
-      .langs a { border:1px solid var(--line); border-radius:999px; padding:5px 9px; color:var(--ink); background:rgba(255,255,255,.55); }
-      .hero { padding:96px 0 70px; }
-      .eyebrow { margin:0 0 14px; color:var(--accent); font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
-      h1 { margin:0; max-width:820px; font-size:clamp(48px, 8vw, 96px); line-height:.96; letter-spacing:-.07em; }
-      .hero-copy { max-width:720px; margin:28px 0 0; color:var(--muted); font-size:clamp(17px,2vw,21px); }
-      .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
-      .button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 18px; border-radius:999px; text-decoration:none; font-weight:750; }
-      .button.primary { background:var(--ink); color:white; }
-      .button.secondary { border:1px solid var(--line); background:var(--card); }
-      .facts { margin-top:58px; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-      .fact { padding:20px 12px 20px 0; }
-      .fact strong { display:block; font-size:15px; }
-      .fact span { color:var(--muted); font-size:13px; }
-      section { padding:80px 0; }
-      .section-head { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:30px; }
-      h2 { margin:0; font-size:clamp(34px,5vw,58px); line-height:1; letter-spacing:-.055em; }
-      .section-head p { max-width:520px; margin:0; color:var(--muted); }
-      .portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start; }
-      .post { overflow:hidden; min-height:620px; border:1px solid var(--line); border-radius:26px; background:var(--card); box-shadow:0 16px 50px rgba(61,49,36,.08); }
-      .post iframe { width:100%; min-height:620px; border:0; display:block; background:white; }
-      .services { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-      .service { padding:26px; border:1px solid var(--line); border-radius:24px; background:rgba(255,253,249,.68); }
-      .service span { color:var(--accent2); font-size:13px; font-weight:800; }
-      .service h3 { margin:12px 0 8px; font-size:23px; letter-spacing:-.035em; }
-      .service p { margin:0; color:var(--muted); }
-      .process { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; counter-reset:steps; }
-      .step { padding:22px; border-top:1px solid var(--ink); }
-      .step small { color:var(--accent); font-weight:800; }
-      .step h3 { margin:25px 0 8px; }
-      .step p { color:var(--muted); margin:0; font-size:14px; }
-      .contact { padding:70px; border-radius:34px; color:white; background:var(--ink); }
-      .contact p { max-width:620px; color:#cfc7bc; }
-      .contact .secondary { background:white; color:var(--ink); border:0; }
-      footer { padding:30px 0 50px; color:var(--muted); font-size:13px; }
-      .notice { margin-top:18px; padding:14px 16px; border-radius:14px; background:#fff3cf; color:#624b0e; font-size:13px; }
-      @media (max-width:900px) { .portfolio-grid,.services { grid-template-columns:1fr 1fr; } .process { grid-template-columns:1fr 1fr; } .nav-links>a:not(.brand) { display:none; } }
-      @media (max-width:640px) { .hero { padding-top:64px; } .facts,.portfolio-grid,.services,.process { grid-template-columns:1fr; } .post,.post iframe { min-height:590px; } .section-head { align-items:start; flex-direction:column; } .contact { padding:34px 24px; } .langs { gap:3px; } .langs a { padding:4px 7px; font-size:12px; } }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f2e9" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="description" content="서울·수도권에서 자연스러운 인물 스냅, 프로필, 커플 촬영과 포트폴리오 협업을 진행합니다." />
+    <link rel="canonical" href="https://snap.lavalabs.co.kr/ko" />
+    <link rel="alternate" hreflang="ko-KR" href="https://snap.lavalabs.co.kr/ko" />
+    <link rel="alternate" hreflang="ja-JP" href="https://snap.lavalabs.co.kr/ja" />
+    <link rel="alternate" hreflang="en" href="https://snap.lavalabs.co.kr/en" />
+    <link rel="alternate" hreflang="x-default" href="https://snap.lavalabs.co.kr/ko" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="365 Daily Snap" />
+    <meta property="og:title" content="365 Daily Snap | 서울 인물 스냅·프로필 촬영" />
+    <meta property="og:description" content="평범한 하루도 오래 기억될 장면으로. 서울·수도권 자연스러운 인물 스냅 촬영." />
+    <meta property="og:url" content="https://snap.lavalabs.co.kr/ko" />
+    <meta property="og:image" content="https://snap.lavalabs.co.kr/portfolio/uploads/instagram/ig-001-711885820_18178679521399756_3313720309772480387_n.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"ProfessionalService","name":"365 Daily Snap","url":"https://snap.lavalabs.co.kr/","description":"서울과 수도권에서 자연스러운 인물 스냅, 프로필, 커플 촬영을 진행합니다.","sameAs":["https://www.instagram.com/365daily.snap/","https://open.kakao.com/o/sV8I6vmi"],"areaServed":["Seoul","Capital Area","Tokyo"],"availableLanguage":["Korean","Japanese","English"],"founder":{"@type":"Person","name":"Kim Kyungmin"}}
+    </script>
+    <title>365 Daily Snap | 서울 인물 스냅·프로필 촬영</title>
   </head>
   <body>
-    <header>
-      <div class="wrap nav">
-        <a class="brand" href="#top">365 Daily Snap</a>
-        <nav class="nav-links" aria-label="주요 메뉴">
-          <a href="#portfolio" data-ko="포트폴리오" data-ja="ポートフォリオ" data-en="Portfolio">포트폴리오</a>
-          <a href="#service" data-ko="촬영 안내" data-ja="撮影案内" data-en="Sessions">촬영 안내</a>
-          <a href="#contact" data-ko="문의" data-ja="お問い合わせ" data-en="Contact">문의</a>
-          <span class="langs"><a href="/ko">KO</a><a href="/ja">JP</a><a href="/en">EN</a></span>
-        </nav>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="365 Daily Snap home"><span>365</span><b>Daily Snap</b></a>
+      <nav id="mainNav" aria-label="Primary navigation">
+        <a href="#work" data-i18n="navWork">대표 작업</a>
+        <a href="#sessions" data-i18n="navSessions">촬영 구성</a>
+        <a href="#reviews" data-i18n="navReviews">후기</a>
+        <a href="#about" data-i18n="navAbout">작가 소개</a>
+        <a href="#faq" data-i18n="navFaq">FAQ</a>
+        <a href="#contact" data-i18n="navContact">문의</a>
+      </nav>
+      <div class="header-tools">
+        <div class="language-switch" aria-label="Language">
+          <button type="button" data-lang="ko">KO</button><button type="button" data-lang="ja">JP</button><button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="button primary compact desktop-contact" href="#contact" data-i18n="heroSecondary">촬영 문의하기</a>
+        <button id="menuButton" class="menu-button" type="button" aria-label="Menu"><span></span><span></span></button>
       </div>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <div class="wrap">
-          <p class="eyebrow">Seoul · Capital Area · Tokyo Selected Dates</p>
-          <h1>365 Daily<br />Snap</h1>
-          <p class="hero-copy" data-ko="있는 그대로의 표정과 분위기를 자연스럽게 남기는 인물 스냅. 서울·수도권을 중심으로 프로필, 데일리, 커플 촬영을 진행합니다." data-ja="自然な表情と空気感を残すポートレート撮影。ソウル・首都圏を中心に、プロフィール、デイリー、カップル撮影を行います。" data-en="Natural portrait sessions focused on honest expressions and atmosphere. Available for profiles, daily portraits, and couples in Seoul and the capital area.">있는 그대로의 표정과 분위기를 자연스럽게 남기는 인물 스냅. 서울·수도권을 중심으로 프로필, 데일리, 커플 촬영을 진행합니다.</p>
-          <div class="actions">
-            <a class="button primary" href="https://www.instagram.com/365daily.snap/" target="_blank" rel="noreferrer" data-ko="Instagram 보기" data-ja="Instagramを見る" data-en="View Instagram">Instagram 보기</a>
-            <a class="button secondary" href="https://open.kakao.com/o/sV8I6vmi" target="_blank" rel="noreferrer" data-ko="카카오톡 문의" data-ja="カカオトーク相談" data-en="KakaoTalk inquiry">카카오톡 문의</a>
-          </div>
-          <div class="facts">
-            <div class="fact"><strong>Portrait</strong><span data-ko="인물·프로필·데일리" data-ja="人物・プロフィール・デイリー" data-en="Portraits and profiles">인물·프로필·데일리</span></div>
-            <div class="fact"><strong>Seoul / Capital Area</strong><span data-ko="장소와 동선 협의" data-ja="場所と動線を相談" data-en="Location planning available">장소와 동선 협의</span></div>
-            <div class="fact"><strong>KR · JP · EN</strong><span data-ko="다국어 촬영 문의" data-ja="多言語でのお問い合わせ" data-en="Multilingual inquiries">다국어 촬영 문의</span></div>
-          </div>
+      <section class="hero page-wrap">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">SEOUL · CAPITAL AREA · TOKYO SELECTED DATES</p>
+          <h1 data-i18n-html="heroTitle">평범한 하루도,<br />오래 기억될 장면으로.</h1>
+          <p class="hero-description" data-i18n="heroDescription">서울·수도권에서 자연스러운 인물 스냅을 촬영합니다. 사진이 처음이어도 포즈와 시선을 편안하게 안내해드립니다.</p>
+          <div class="hero-actions"><a class="button primary" href="#work"><span data-i18n="heroPrimary">대표 작업 보기</span><span aria-hidden="true">↗</span></a><a class="button ghost" href="#contact" data-i18n="heroSecondary">촬영 문의하기</a></div>
+          <div class="trust-row"><span>✓ <b data-i18n="trust1">평일 저녁·주말</b></span><span>✓ <b data-i18n="trust2">개인·커플·프로필</b></span><span>✓ <b data-i18n="trust3">TFP 협업 가능</b></span></div>
         </div>
+        <div id="heroGallery" class="hero-gallery skeleton-gallery" aria-label="Featured photography"></div>
       </section>
 
-      <section id="portfolio">
-        <div class="wrap">
-          <div class="section-head">
-            <div><p class="eyebrow">Selected Work</p><h2 data-ko="촬영 기록" data-ja="撮影記録" data-en="Selected portraits">촬영 기록</h2></div>
-            <p data-ko="실제 Instagram에 공개된 촬영 작업입니다. 각 사진을 누르면 원본 게시물과 함께 볼 수 있습니다." data-ja="Instagramで公開している実際の撮影作品です。各投稿から元の写真をご覧いただけます。" data-en="A selection of published work from Instagram. Open each post to view the original set.">실제 Instagram에 공개된 촬영 작업입니다. 각 사진을 누르면 원본 게시물과 함께 볼 수 있습니다.</p>
-          </div>
-          <div class="portfolio-grid">
-            <article class="post"><iframe title="365 Daily Snap portfolio 1" loading="lazy" src="https://www.instagram.com/p/DYZzZOZk7ll/embed/"></iframe></article>
-            <article class="post"><iframe title="365 Daily Snap portfolio 2" loading="lazy" src="https://www.instagram.com/p/DYZyeEWk_9Y/embed/"></iframe></article>
-            <article class="post"><iframe title="365 Daily Snap portfolio 3" loading="lazy" src="https://www.instagram.com/p/DYJQGmoE9Bu/embed/"></iframe></article>
-            <article class="post"><iframe title="365 Daily Snap portfolio 4" loading="lazy" src="https://www.instagram.com/p/DX0dS0oE9K_/embed/"></iframe></article>
-            <article class="post"><iframe title="365 Daily Snap portfolio 5" loading="lazy" src="https://www.instagram.com/p/DXlMumDD58X/embed/"></iframe></article>
-            <article class="post"><iframe title="365 Daily Snap portfolio 6" loading="lazy" src="https://www.instagram.com/p/DXibZEnE6eL/embed/"></iframe></article>
-          </div>
-        </div>
+      <section id="work" class="section page-wrap">
+        <header class="section-heading"><p class="eyebrow">FEATURED PROJECTS</p><h2 data-i18n="workTitle">사진 한 장보다, 촬영의 흐름을 보여드립니다.</h2><p data-i18n="workDescription">같은 날의 분위기와 장면을 하나의 프로젝트로 묶었습니다.</p></header>
+        <div id="projectGrid" class="project-grid" aria-live="polite"></div>
+        <button id="projectMore" class="button ghost centered" type="button" hidden data-i18n="moreProjects">프로젝트 더 보기</button>
       </section>
 
-      <section id="service">
-        <div class="wrap">
-          <div class="section-head"><div><p class="eyebrow">Sessions</p><h2 data-ko="촬영 안내" data-ja="撮影案内" data-en="Session guide">촬영 안내</h2></div></div>
-          <div class="services">
-            <article class="service"><span>01</span><h3 data-ko="개인 인물 스냅" data-ja="個人ポートレート" data-en="Personal portrait">개인 인물 스냅</h3><p data-ko="프로필, SNS, 일상 기록을 위한 자연스러운 인물 촬영입니다." data-ja="プロフィール、SNS、日常の記録のための自然な人物撮影です。" data-en="Natural portraits for profiles, social media, and personal records.">프로필, SNS, 일상 기록을 위한 자연스러운 인물 촬영입니다.</p></article>
-            <article class="service"><span>02</span><h3 data-ko="커플·데이트 스냅" data-ja="カップル撮影" data-en="Couple session">커플·데이트 스냅</h3><p data-ko="과한 연출보다 두 사람의 편안한 움직임과 표정을 중심으로 담습니다." data-ja="過度な演出より、二人の自然な動きと表情を大切にします。" data-en="Relaxed couple photography focused on genuine movement and expressions.">과한 연출보다 두 사람의 편안한 움직임과 표정을 중심으로 담습니다.</p></article>
-            <article class="service"><span>03</span><h3 data-ko="포트폴리오 협업" data-ja="ポートフォリオ協業" data-en="Portfolio collaboration">포트폴리오 협업</h3><p data-ko="서로 필요한 방향이 맞는 경우 상호무페이·TFP 협업도 진행합니다." data-ja="方向性が合う場合、TFP形式の協業撮影も行います。" data-en="TFP collaborations are available when the creative direction is a good fit.">서로 필요한 방향이 맞는 경우 상호무페이·TFP 협업도 진행합니다.</p></article>
-          </div>
-        </div>
-      </section>
+      <section class="tone-section"><div class="section page-wrap"><header class="section-heading"><p class="eyebrow">WHY 365 DAILY SNAP</p><h2 data-i18n="whyTitle">촬영이 어색한 순간부터 함께 정리합니다.</h2></header><div class="why-grid">
+        <article><span>01</span><h3 data-i18n="why1Title">처음이어도 괜찮습니다</h3><p data-i18n="why1Text">걷기, 시선, 손 위치처럼 작은 움직임부터 안내합니다.</p></article>
+        <article><span>02</span><h3 data-i18n="why2Title">장소와 시간대를 함께 고릅니다</h3><p data-i18n="why2Text">원하는 분위기와 이동 동선을 기준으로 촬영 장소를 제안합니다.</p></article>
+        <article><span>03</span><h3 data-i18n="why3Title">과하지 않은 자연스러운 보정</h3><p data-i18n="why3Text">피부톤과 색감, 배경을 정돈하되 본래의 인상은 유지합니다.</p></article>
+        <article><span>04</span><h3 data-i18n="why4Title">공개 범위를 먼저 확인합니다</h3><p data-i18n="why4Text">전체 공개, 일부 공개, 비공개 요청을 촬영 전에 조율합니다.</p></article>
+      </div></div></section>
 
-      <section>
-        <div class="wrap">
-          <div class="section-head"><div><p class="eyebrow">Process</p><h2 data-ko="진행 과정" data-ja="撮影の流れ" data-en="How it works">진행 과정</h2></div></div>
-          <div class="process">
-            <article class="step"><small>01</small><h3 data-ko="문의" data-ja="お問い合わせ" data-en="Inquiry">문의</h3><p data-ko="희망 날짜, 지역, 촬영 목적과 원하는 분위기를 보내주세요." data-ja="希望日、エリア、目的、雰囲気をお知らせください。" data-en="Share your date, area, purpose, and preferred mood.">희망 날짜, 지역, 촬영 목적과 원하는 분위기를 보내주세요.</p></article>
-            <article class="step"><small>02</small><h3 data-ko="일정·장소 조율" data-ja="日程・場所調整" data-en="Planning">일정·장소 조율</h3><p data-ko="이동 동선과 시간대에 맞춰 촬영 장소를 함께 정합니다." data-ja="移動と時間帯に合わせて場所を決めます。" data-en="We choose a location and schedule that fit the session.">이동 동선과 시간대에 맞춰 촬영 장소를 함께 정합니다.</p></article>
-            <article class="step"><small>03</small><h3 data-ko="촬영" data-ja="撮影" data-en="Session">촬영</h3><p data-ko="어색하지 않도록 대화하며 자연스러운 표정과 움직임을 담습니다." data-ja="会話しながら自然な表情と動きを撮影します。" data-en="The session stays conversational and relaxed.">어색하지 않도록 대화하며 자연스러운 표정과 움직임을 담습니다.</p></article>
-            <article class="step"><small>04</small><h3 data-ko="셀렉·보정·전달" data-ja="セレクト・補正・納品" data-en="Delivery">셀렉·보정·전달</h3><p data-ko="선택한 사진을 자연스럽게 보정한 뒤 온라인으로 전달합니다." data-ja="選んだ写真を自然に補正し、オンラインで納品します。" data-en="Selected images are edited naturally and delivered online.">선택한 사진을 자연스럽게 보정한 뒤 온라인으로 전달합니다.</p></article>
-          </div>
-        </div>
-      </section>
+      <section id="sessions" class="section page-wrap"><header class="section-heading"><p class="eyebrow">SESSIONS</p><h2 data-i18n="sessionsTitle">필요한 목적에 맞춰 촬영합니다.</h2><p data-i18n="sessionsDescription">정확한 비용과 제공 컷은 촬영 시간, 장소 이동, 보정 범위에 따라 상담 후 안내합니다.</p></header><div class="session-grid">
+        <article><div class="session-icon">◯</div><p class="eyebrow">PORTRAIT SNAP</p><h3 data-i18n="session1Title">개인 인물 스냅</h3><span data-i18n="session1Time">약 60분</span><p data-i18n="session1Text">프로필, SNS, 일상 기록을 위한 자연스러운 개인 촬영입니다.</p><div class="tag-row"><i>Profile</i><i>Daily</i><i>SNS</i></div></article>
+        <article><div class="session-icon">◎</div><p class="eyebrow">COUPLE SNAP</p><h3 data-i18n="session2Title">커플·데이트 스냅</h3><span data-i18n="session2Time">약 60~90분</span><p data-i18n="session2Text">과한 연출보다 두 사람의 편안한 움직임과 표정을 담습니다.</p><div class="tag-row"><i>Date</i><i>Anniversary</i><i>Outdoor</i></div></article>
+        <article><div class="session-icon">◇</div><p class="eyebrow">PROFILE</p><h3 data-i18n="session3Title">프로필·브랜딩</h3><span data-i18n="session3Time">약 60~90분</span><p data-i18n="session3Text">소개 페이지, 블로그, 업무용 프로필에 맞춰 이미지 방향을 설계합니다.</p><div class="tag-row"><i>Branding</i><i>Profile</i><i>Concept</i></div></article>
+        <article><div class="session-icon">♡</div><p class="eyebrow">COLLABORATION</p><h3 data-i18n="session4Title">포트폴리오 협업</h3><span data-i18n="session4Time">일정 협의</span><p data-i18n="session4Text">서로 필요한 방향이 맞는 경우 상호무페이·TFP 촬영을 진행합니다.</p><div class="tag-row"><i>TFP</i><i>Model</i><i>Portfolio</i></div></article>
+      </div></section>
 
-      <section id="contact">
-        <div class="wrap">
-          <div class="contact">
-            <p class="eyebrow">Contact</p>
-            <h2 data-ko="촬영을 함께 계획해볼까요?" data-ja="撮影を一緒に計画しませんか？" data-en="Let’s plan a session">촬영을 함께 계획해볼까요?</h2>
-            <p data-ko="이름 또는 닉네임, 가능한 날짜, 희망 지역, 원하는 분위기를 보내주시면 확인 후 답변드릴게요." data-ja="お名前、希望日、エリア、イメージを送っていただければ確認後ご返信します。" data-en="Send your name, possible dates, preferred area, and the mood you have in mind.">이름 또는 닉네임, 가능한 날짜, 희망 지역, 원하는 분위기를 보내주시면 확인 후 답변드릴게요.</p>
-            <div class="actions">
-              <a class="button secondary" href="https://www.instagram.com/365daily.snap/" target="_blank" rel="noreferrer">Instagram DM</a>
-              <a class="button secondary" href="https://open.kakao.com/o/sV8I6vmi" target="_blank" rel="noreferrer" data-ko="카카오톡 오픈채팅" data-ja="カカオトーク" data-en="KakaoTalk">카카오톡 오픈채팅</a>
-            </div>
-            <div class="notice" data-ko="현재 홈페이지 호스팅 이전 중으로 웹 문의 폼과 관리자 기능은 임시 점검 중입니다. 촬영 문의는 Instagram 또는 카카오톡으로 정상 접수됩니다." data-ja="現在ホスティング移行中のため、Webフォームと管理機能を一時点検しています。お問い合わせはInstagramまたはカカオトークをご利用ください。" data-en="The web form and admin tools are temporarily under maintenance during hosting migration. Instagram and KakaoTalk inquiries remain available.">현재 홈페이지 호스팅 이전 중으로 웹 문의 폼과 관리자 기능은 임시 점검 중입니다. 촬영 문의는 Instagram 또는 카카오톡으로 정상 접수됩니다.</div>
-          </div>
+      <section class="process-section"><div class="section page-wrap"><header class="section-heading"><p class="eyebrow">PROCESS</p><h2 data-i18n="processTitle">복잡하지 않게, 네 단계로 진행합니다.</h2></header><div class="process-grid">
+        <article><span>01</span><h3 data-i18n="process1Title">문의</h3><p data-i18n="process1Text">희망 날짜, 지역, 촬영 목적과 원하는 분위기를 보내주세요.</p></article>
+        <article><span>02</span><h3 data-i18n="process2Title">일정·장소 확정</h3><p data-i18n="process2Text">이동 동선과 시간대에 맞춰 촬영 장소와 콘셉트를 정합니다.</p></article>
+        <article><span>03</span><h3 data-i18n="process3Title">촬영</h3><p data-i18n="process3Text">대화하며 자연스러운 표정과 움직임을 함께 만들어갑니다.</p></article>
+        <article><span>04</span><h3 data-i18n="process4Title">셀렉·보정·전달</h3><p data-i18n="process4Text">후보 컷을 확인하고 선택한 사진을 자연스럽게 보정해 전달합니다.</p></article>
+      </div></div></section>
+
+      <section id="reviews" class="section page-wrap"><header class="section-heading"><p class="eyebrow">REAL REVIEWS</p><h2 data-i18n="reviewsTitle">함께 촬영한 분들의 실제 후기</h2><p data-i18n="reviewsDescription">결과물뿐 아니라 촬영 분위기와 소통 과정까지 확인해보세요.</p></header><div id="reviewGrid" class="review-grid"></div><button id="reviewMore" class="button ghost centered" type="button" hidden data-i18n="moreReviews">후기 더 보기</button></section>
+
+      <section id="about" class="about-section"><div class="section page-wrap about-grid"><div class="about-visual"><span>K<br />M</span><small>365 DAILY SNAP</small></div><div><p class="eyebrow">ABOUT PHOTOGRAPHER</p><h2 data-i18n="aboutTitle">안녕하세요. 365 Daily Snap의 김경민입니다.</h2><p data-i18n="aboutText">정해진 포즈를 반복하기보다 대화와 움직임 속에서 자연스러운 표정을 담습니다. 사진이 익숙하지 않은 분도 부담 없이 촬영할 수 있도록 포즈와 시선을 단계별로 안내합니다.</p><div class="about-facts"><span>✓ <b data-i18n="aboutFact1">서울·수도권 중심</b></span><span>✓ <b data-i18n="aboutFact2">평일 저녁·주말 촬영</b></span><span>✓ <b data-i18n="aboutFact3">개인·커플·프로필</b></span><span>✓ <b data-i18n="aboutFact4">도쿄 선택 일정</b></span></div><a class="text-link" href="https://www.instagram.com/365daily.snap/" target="_blank" rel="noreferrer">Instagram @365daily.snap ↗</a></div></div></section>
+
+      <section id="faq" class="section page-wrap"><header class="section-heading"><p class="eyebrow">FAQ</p><h2 data-i18n="faqTitle">촬영 전에 많이 묻는 내용</h2></header><div id="faqList" class="faq-list"></div></section>
+
+      <section id="contact" class="contact-section"><div class="section page-wrap contact-grid"><div class="contact-copy"><p class="eyebrow">CONTACT</p><h2 data-i18n="contactTitle">30초 빠른 문의부터 상세 상담까지</h2><p data-i18n="contactDescription">필수 정보만 먼저 남기고, 촬영 방향은 이후 대화로 정리해도 괜찮습니다.</p><div class="contact-direct"><a href="https://open.kakao.com/o/sV8I6vmi" target="_blank" rel="noreferrer"><b>KakaoTalk</b><small>Open chat</small><span>↗</span></a><a href="https://www.instagram.com/365daily.snap/" target="_blank" rel="noreferrer"><b>Instagram DM</b><small>@365daily.snap</small><span>↗</span></a></div></div>
+        <div class="inquiry-panel">
+          <div class="inquiry-mode"><button type="button" class="active" data-mode="quick" data-i18n="quickInquiry">빠른 문의</button><button type="button" data-mode="detail" data-i18n="detailInquiry">상세 문의</button></div>
+          <div id="stepIndicator" class="step-indicator" hidden><span>STEP <b id="stepNumber">1</b>/3</span><i><em id="stepBar"></em></i></div>
+          <form id="inquiryForm" novalidate>
+            <section class="form-step" data-step="1"><fieldset><legend data-i18n="formType">촬영 유형 *</legend><div id="typeChoices" class="choice-grid"></div></fieldset><div class="field-grid"><label><span data-i18n="formName">이름 / 닉네임 *</span><input name="name" autocomplete="name" required /></label><label><span data-i18n="formContactMethod">연락 방법</span><select name="contactMethod"><option>Instagram DM</option><option>KakaoTalk</option><option>Email</option><option>Phone / SMS</option></select></label><label class="wide"><span data-i18n="formContact">연락처 또는 계정 *</span><input name="contact" required /></label><label><span data-i18n="formDate">희망 날짜 *</span><input name="date" required /></label><label><span data-i18n="formRegion">희망 지역</span><input name="region" /></label></div></section>
+            <section class="form-step" data-step="2" hidden><div class="field-grid"><label class="wide"><span data-i18n="formMood">원하는 분위기</span><input name="mood" /></label><label class="wide"><span data-i18n="formPurpose">촬영 목적</span><input name="purpose" /></label><label><span data-i18n="formPeople">인원 수</span><input name="people" type="number" min="1" max="20" value="1" /></label><label><span data-i18n="formPrivacy">사진 공개 범위</span><select name="privacy" id="privacySelect"></select></label></div></section>
+            <section class="form-step" data-step="3" hidden><label class="upload-field"><b data-i18n="formReference">참고 이미지</b><input name="references" type="file" accept="image/*" multiple /><small data-i18n="uploadHint">최대 3장, 장당 8MB 이하</small></label><label><span data-i18n="formMessage">추가 요청</span><textarea name="message"></textarea></label></section>
+            <label id="consentRow" class="consent"><input name="consent" type="checkbox" required /><span><b data-i18n="formConsent">문의 접수를 위한 개인정보 수집·이용에 동의합니다. *</b><small data-i18n="consentDetail">수집 항목: 이름, 연락처, 촬영 요청 정보 · 목적: 촬영 상담 및 일정 조율 · 보관: 상담 종료 후 1년 또는 요청 시 즉시 삭제</small></span></label>
+            <div id="formMessage" class="form-message" hidden></div>
+            <div class="form-navigation"><button id="prevStep" class="button ghost" type="button" hidden data-i18n="previous">이전</button><button id="nextStep" class="button primary" type="button" hidden data-i18n="next">다음</button><button id="submitInquiry" class="button primary" type="submit" data-i18n="submit">문의 보내기</button></div>
+          </form>
         </div>
-      </section>
+      </div></section>
     </main>
 
-    <footer><div class="wrap">© 365 Daily Snap · Seoul / Tokyo Portrait</div></footer>
+    <footer class="site-footer page-wrap"><div><b>365 Daily Snap</b><p data-i18n="footerLine">자연스러운 인물 스냅 · 서울 / 수도권 / 도쿄 선택 일정</p></div><div class="business"><span>라바랩스(LavaLabs) · 대표 김경민</span><span>455-23-01867 · 2025-고양일산서-1352</span><span>info@lavalabs.co.kr</span></div><button id="privacyButton" type="button" data-i18n="privacyNotice">개인정보 처리 안내</button><p>© 2026 365 Daily Snap.</p></footer>
 
-    <script>
-      const lang = location.pathname.split('/').filter(Boolean)[0] || 'ko';
-      const active = ['ko','ja','en'].includes(lang) ? lang : 'ko';
-      document.documentElement.lang = active === 'ja' ? 'ja' : active;
-      document.querySelectorAll('[data-ko]').forEach((node) => {
-        const value = node.dataset[active];
-        if (value) node.textContent = value;
-      });
-      const titles = { ko:'365 Daily Snap | 서울 인물 스냅', ja:'365 Daily Snap | ソウル ポートレート', en:'365 Daily Snap | Seoul Portrait Photographer' };
-      document.title = titles[active];
-    </script>
+    <div class="mobile-contact"><a href="#contact" data-i18n="heroSecondary">촬영 문의하기</a><a href="https://open.kakao.com/o/sV8I6vmi" target="_blank" rel="noreferrer">Kakao</a></div>
+    <div id="projectModal" class="modal-backdrop" hidden><section class="project-modal" role="dialog" aria-modal="true"><button class="modal-close" type="button" data-close="project">×</button><div id="modalStage" class="modal-stage"></div><aside><p id="modalCategory" class="eyebrow"></p><h2 id="modalTitle"></h2><p id="modalDescription"></p><div id="modalMeta" class="modal-meta"></div><div id="modalThumbs" class="modal-thumbs"></div><a class="button primary" href="#contact" data-close="project" data-i18n="projectInquiry">이 분위기로 문의하기</a></aside></section></div>
+    <div id="privacyModal" class="modal-backdrop" hidden><section class="privacy-modal" role="dialog" aria-modal="true"><button class="modal-close" type="button" data-close="privacy">×</button><h2 data-i18n="privacyNotice">개인정보 처리 안내</h2><p data-i18n="consentDetail">수집 항목: 이름, 연락처, 촬영 요청 정보 · 목적: 촬영 상담 및 일정 조율 · 보관: 상담 종료 후 1년 또는 요청 시 즉시 삭제</p><dl><dt>Controller</dt><dd>라바랩스(LavaLabs) · 김경민</dd><dt>Contact</dt><dd>info@lavalabs.co.kr</dd><dt>Address</dt><dd>경기도 고양시 일산서구 일현로 47, 2층 204호 1308호실</dd></dl></section></div>
+    <script src="/app.js" defer></script>
   </body>
 </html>
