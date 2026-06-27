@@ -1,0 +1,35 @@
+name: Inspect Pages deployment
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect latest deployment runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow mirror-pages.yml --limit 10 --json databaseId,status,conclusion,headSha,event,createdAt,url > runs.json
+          RUN_ID="$(jq -r '.[0].databaseId // empty' runs.json)"
+          if [ -n "$RUN_ID" ]; then
+            gh run view "$RUN_ID" --repo "$GITHUB_REPOSITORY" --log-failed > failure.log || true
+            gh run view "$RUN_ID" --repo "$GITHUB_REPOSITORY" --json jobs,status,conclusion,url > run-detail.json || true
+          fi
+      - name: Upload diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-diagnostics
+          path: |
+            runs.json
+            failure.log
+            run-detail.json
+          if-no-files-found: ignore
