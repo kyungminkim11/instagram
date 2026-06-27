@@ -1,0 +1,30 @@
+name: Inspect verified portfolio
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect verified deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy-clean.yml --limit 5 --json databaseId,status,conclusion,headSha,event,createdAt,url > clean-runs.json
+          RUN_ID="$(jq -r '.[0].databaseId // empty' clean-runs.json)"
+          if [ -n "$RUN_ID" ]; then
+            gh run view "$RUN_ID" --repo "$GITHUB_REPOSITORY" --json jobs,status,conclusion,url > clean-detail.json
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clean-pages-diagnostics
+          path: |
+            clean-runs.json
+            clean-detail.json
