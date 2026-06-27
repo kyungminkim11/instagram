@@ -6,6 +6,16 @@ const SITE_DIR = "site";
 const PORTFOLIO_PATH = "portfolio/portfolio.json";
 const IMAGE_PATTERN = /\.(?:avif|gif|jpe?g|png|webp)(?:\?|$)/i;
 
+const FALLBACK_CONTENT = {
+  projects: [],
+  testimonials: [
+    { name: "@ooonllii", date: "2월 8일", type: "카페 인물 스냅", content: "저도 오늘 촬영 너무 즐거웠어요. 다음에 기회되면 또 촬영해요. 모델 필요하시면 또 연락주시고요. 100점짜리 작가님이 불러주시면 언제든 달려가겠습니다." },
+    { name: "@kylieyouk", date: "2월 17일", type: "야외 인물 스냅", content: "작가님 너무 고생 많으셨습니다. 추운 날씨에 촬영하시느라 정말 고생 많으셨어요. 덕분에 즐겁고 좋은 시간 보냈고, 다음 촬영도 언제든지 환영입니다." },
+    { name: "@new_.too", date: "3월 9일", type: "프로필 협업 촬영", content: "오늘 수고 많으셨습니다. 즐거운 촬영 시간이었습니다. 사진 전달과 확인 과정도 편하게 안내해주셔서 좋았습니다." },
+    { name: "분다버그", date: "3월 2일", type: "야외 인물 스냅", content: "잘 찍어주셔서 감사합니다. 추운 날씨에 늦은 시간까지 함께해주셔서 정말 감사했어요. 덕분에 분위기 좋은 컷 많이 나왔습니다." }
+  ]
+};
+
 async function exists(path) {
   try { await access(path); return true; } catch { return false; }
 }
@@ -62,22 +72,28 @@ function collectAssets(value, output = new Set()) {
   return output;
 }
 
+async function saveContent(destination, content) {
+  await mkdir(dirname(destination), { recursive: true });
+  await writeFile(destination, `${JSON.stringify(content, null, 2)}\n`, "utf8");
+}
+
 async function loadPortfolio() {
   const destination = join(SITE_DIR, PORTFOLIO_PATH);
   try {
     const response = await fetchWithRetry(`${ORIGIN}/portfolio/portfolio.json`);
     const raw = JSON.parse(await response.text());
     const content = prepareContent(raw);
-    await mkdir(dirname(destination), { recursive: true });
-    await writeFile(destination, `${JSON.stringify(content, null, 2)}\n`, "utf8");
-    console.log(`Prepared ${content.projects.length} projects for public deployment.`);
+    await saveContent(destination, content);
+    console.log(`Prepared ${content.projects.length} projects from the source.`);
     return content;
   } catch (error) {
     if (await exists(destination)) {
-      console.warn(`Origin unavailable; using local portfolio.json: ${error.message}`);
+      console.warn(`Source unavailable; using local portfolio.json: ${error.message}`);
       return JSON.parse(await readFile(destination, "utf8"));
     }
-    throw new Error(`Portfolio sync failed and no local fallback exists: ${error.message}`);
+    console.warn(`Source unavailable; using Instagram fallback: ${error.message}`);
+    await saveContent(destination, FALLBACK_CONTENT);
+    return FALLBACK_CONTENT;
   }
 }
 
@@ -115,4 +131,4 @@ for (let index = 0; index < assets.length; index += 8) {
   });
 }
 
-console.log(`Portfolio asset sync complete: ${downloaded} downloaded, ${cached} cached, ${failed} unavailable.`);
+console.log(`Portfolio build complete: ${downloaded} downloaded, ${cached} cached, ${failed} unavailable.`);
