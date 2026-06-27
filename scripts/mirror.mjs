@@ -14,18 +14,35 @@ async function fetchWithRetry(url, attempts = 3) {
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      const response = await fetch(url, {
-        headers: { "user-agent": "365-daily-snap-pages-sync" },
-        redirect: "follow",
-      });
+      const response = await fetch(url, { headers: { "user-agent": "365-daily-snap-pages-sync" }, redirect: "follow" });
       if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
       return response;
     } catch (error) {
       lastError = error;
-      if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, attempt * 1200));
+      if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
     }
   }
   throw lastError;
+}
+
+function selectMedia(project) {
+  const media = Array.isArray(project.media) ? project.media.filter((item) => item?.src) : [];
+  if (media.length <= 30) return media;
+  const grouped = new Map();
+  media.forEach((item) => {
+    const key = item.models?.[0] || "365daily.snap";
+    if (!grouped.has(key)) grouped.set(key, []);
+    if (grouped.get(key).length < 12) grouped.get(key).push(item);
+  });
+  return [...grouped.values()].flat().slice(0, 72);
+}
+
+function prepareContent(raw) {
+  const projects = (Array.isArray(raw.projects) ? raw.projects : []).map((project) => {
+    const media = selectMedia(project);
+    return { ...project, cover: media[0]?.src || project.cover, media };
+  });
+  return { ...raw, projects, portfolioItems: [] };
 }
 
 function collectAssets(value, output = new Set()) {
@@ -45,12 +62,12 @@ async function loadPortfolio() {
   const destination = join(SITE_DIR, PORTFOLIO_PATH);
   try {
     const response = await fetchWithRetry(`${ORIGIN}/portfolio/portfolio.json`);
-    const text = await response.text();
-    JSON.parse(text);
+    const raw = JSON.parse(await response.text());
+    const content = prepareContent(raw);
     await mkdir(dirname(destination), { recursive: true });
-    await writeFile(destination, `${text.trim()}\n`, "utf8");
-    console.log("Updated portfolio.json from the protected source.");
-    return JSON.parse(text);
+    await writeFile(destination, `${JSON.stringify(content, null, 2)}\n`, "utf8");
+    console.log(`Prepared ${content.projects.length} projects for public deployment.`);
+    return content;
   } catch (error) {
     if (await exists(destination)) {
       console.warn(`Origin unavailable; using committed portfolio.json: ${error.message}`);
@@ -81,8 +98,8 @@ let downloaded = 0;
 let cached = 0;
 let failed = 0;
 
-for (let index = 0; index < assets.length; index += 8) {
-  const results = await Promise.all(assets.slice(index, index + 8).map(downloadAsset));
+for (let index = 0; index < assets.length; index += 10) {
+  const results = await Promise.all(assets.slice(index, index + 10).map(downloadAsset));
   results.forEach((result) => {
     if (result.status === "downloaded") downloaded += 1;
     if (result.status === "cached") cached += 1;
