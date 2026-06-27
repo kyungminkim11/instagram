@@ -1,12 +1,10 @@
-name: Mirror 365 Daily Snap to GitHub Pages
+name: Deploy 365 Daily Snap to GitHub Pages
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-  schedule:
-    - cron: "17 3 * * *"
 
 permissions:
   contents: read
@@ -21,21 +19,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout deployment repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Mirror public site from protected Netlify origin
-        env:
-          NETLIFY_ORIGIN: https://365dailysnap.netlify.app
-        run: node scripts/mirror.mjs
+      - name: Prepare language routes
+        run: |
+          mkdir -p site/ko site/ja site/en site/admin site/manager
+          cp site/index.html site/ko/index.html
+          cp site/index.html site/ja/index.html
+          cp site/index.html site/en/index.html
+          cp site/index.html site/404.html
+          cat > site/admin/index.html <<'EOF'
+          <!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>관리자 기능 이전 중</title><style>body{margin:0;background:#f4efe7;color:#191715;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}.box{max-width:520px;margin:24px;padding:36px;border:1px solid #ddd4c7;border-radius:24px;background:#fffdf9}a{color:#2f5b50}</style></head><body><main class="box"><h1>관리자 기능 이전 중</h1><p>공개 홈페이지는 GitHub Pages로 이전되었습니다. 사진 업로드와 문의 관리 기능은 별도 백엔드로 옮기는 중입니다.</p><p><a href="/">홈페이지로 돌아가기</a></p></main></body></html>
+          EOF
+          cp site/admin/index.html site/manager/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
