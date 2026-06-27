@@ -34,6 +34,9 @@ jobs:
           NETLIFY_ORIGIN: https://365dailysnap.netlify.app
         run: node scripts/mirror.mjs
 
+      - name: Finalize public images and identity
+        run: node scripts/fix-public-site.mjs
+
       - name: Persist mirrored public assets
         shell: bash
         run: |
