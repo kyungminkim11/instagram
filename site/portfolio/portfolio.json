@@ -1,0 +1,82 @@
+{
+  "projects": [
+    {
+      "id": "instagram-01",
+      "title": "Instagram 촬영 기록 01",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DYZzZOZk7ll/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DYZzZOZk7ll/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DYZzZOZk7ll/media/?size=l", "alt": "Instagram 촬영 기록 01", "caption": "Instagram 촬영 기록 01", "instagramUrl": "https://www.instagram.com/p/DYZzZOZk7ll/"}]
+    },
+    {
+      "id": "instagram-02",
+      "title": "Instagram 촬영 기록 02",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DYZyeEWk_9Y/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DYZyeEWk_9Y/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DYZyeEWk_9Y/media/?size=l", "alt": "Instagram 촬영 기록 02", "caption": "Instagram 촬영 기록 02", "instagramUrl": "https://www.instagram.com/p/DYZyeEWk_9Y/"}]
+    },
+    {
+      "id": "instagram-03",
+      "title": "Instagram 촬영 기록 03",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DYJQGmoE9Bu/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DYJQGmoE9Bu/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DYJQGmoE9Bu/media/?size=l", "alt": "Instagram 촬영 기록 03", "caption": "Instagram 촬영 기록 03", "instagramUrl": "https://www.instagram.com/p/DYJQGmoE9Bu/"}]
+    },
+    {
+      "id": "instagram-04",
+      "title": "Instagram 촬영 기록 04",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DX0dS0oE9K_/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DX0dS0oE9K_/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DX0dS0oE9K_/media/?size=l", "alt": "Instagram 촬영 기록 04", "caption": "Instagram 촬영 기록 04", "instagramUrl": "https://www.instagram.com/p/DX0dS0oE9K_/"}]
+    },
+    {
+      "id": "instagram-05",
+      "title": "Instagram 촬영 기록 05",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DXlMumDD58X/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DXlMumDD58X/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DXlMumDD58X/media/?size=l", "alt": "Instagram 촬영 기록 05", "caption": "Instagram 촬영 기록 05", "instagramUrl": "https://www.instagram.com/p/DXlMumDD58X/"}]
+    },
+    {
+      "id": "instagram-06",
+      "title": "Instagram 촬영 기록 06",
+      "description": "@365daily.snap에 공개된 실제 인물 촬영 작업입니다.",
+      "category": "Portrait",
+      "tags": ["인물", "포트폴리오"],
+      "models": [],
+      "location": {"city": "서울", "district": "", "place": ""},
+      "cover": "https://www.instagram.com/p/DXibZEnE6eL/media/?size=l",
+      "instagramUrl": "https://www.instagram.com/p/DXibZEnE6eL/",
+      "media": [{"type": "image", "src": "https://www.instagram.com/p/DXibZEnE6eL/media/?size=l", "alt": "Instagram 촬영 기록 06", "caption": "Instagram 촬영 기록 06", "instagramUrl": "https://www.instagram.com/p/DXibZEnE6eL/"}]
+    }
+  ],
+  "testimonials": [
+    {"name": "@ooonllii", "date": "2월 8일", "type": "카페 인물 스냅", "content": "저도 오늘 촬영 너무 즐거웠어요. 다음에 기회되면 또 촬영해요. 모델 필요하시면 또 연락주시고요. 100점짜리 작가님이 불러주시면 언제든 달려가겠습니다."},
+    {"name": "@kylieyouk", "date": "2월 17일", "type": "야외 인물 스냅", "content": "작가님 너무 고생 많으셨습니다. 추운 날씨에 촬영하시느라 정말 고생 많으셨어요. 덕분에 즐겁고 좋은 시간 보냈고, 다음 촬영도 언제든지 환영입니다."},
+    {"name": "@new_.too", "date": "3월 9일", "type": "프로필 협업 촬영", "content": "오늘 수고 많으셨습니다. 즐거운 촬영 시간이었습니다. 사진 전달과 확인 과정도 편하게 안내해주셔서 좋았습니다."},
+    {"name": "분다버그", "date": "3월 2일", "type": "야외 인물 스냅", "content": "잘 찍어주셔서 감사합니다. 추운 날씨에 늦은 시간까지 함께해주셔서 정말 감사했어요. 덕분에 분위기 좋은 컷 많이 나왔습니다."}
+  ]
+}
