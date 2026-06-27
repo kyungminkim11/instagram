@@ -124,7 +124,7 @@ const shim = `(() => {
     const method = String(init.method || (typeof input !== "string" && input?.method) || "GET").toUpperCase();
 
     if (url.origin === window.location.origin && url.pathname === "/api/content" && method === "GET") {
-      return nativeFetch(`/portfolio/portfolio.json?updated=${Date.now()}`, { ...init, cache: "no-store" });
+      return nativeFetch("/portfolio/portfolio.json?updated=" + Date.now(), { ...init, cache: "no-store" });
     }
 
     if (url.origin === window.location.origin && url.pathname.startsWith("/api/")) {
