@@ -79,3 +79,19 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Record successful deployment
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Commit deployment marker
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p site
+          printf '{"deployedAt":"%s","pageUrl":"%s"}\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${{ steps.deployment.outputs.page_url }}" > site/deploy-status.json
+          git add site/deploy-status.json
+          git commit -m "chore: record successful Pages deployment [skip ci]" || exit 0
+          git push origin HEAD:main
