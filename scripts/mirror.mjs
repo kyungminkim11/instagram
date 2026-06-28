@@ -5,6 +5,7 @@ const ORIGIN = (process.env.NETLIFY_ORIGIN || "https://365dailysnap.netlify.app"
 const SITE_DIR = "site";
 const PORTFOLIO_PATH = "portfolio/portfolio.json";
 const IMAGE_PATTERN = /\.(?:avif|gif|jpe?g|png|webp)(?:\?|$)/i;
+const INSTAGRAM_CARD_SIZE = 3;
 
 const FALLBACK_CONTENT = {
   projects: [],
@@ -36,26 +37,70 @@ async function fetchWithRetry(url, attempts = 3) {
 }
 
 function selectMedia(project) {
-  const media = Array.isArray(project.media)
-    ? project.media.filter((item) => item?.src && IMAGE_PATTERN.test(item.src))
-    : [];
-  if (media.length <= 24) return media;
-  const grouped = new Map();
-  media.forEach((item) => {
-    const key = item.models?.[0] || "365daily.snap";
-    if (!grouped.has(key)) grouped.set(key, []);
-    if (grouped.get(key).length < 8) grouped.get(key).push(item);
-  });
-  return [...grouped.values()].flat().slice(0, 48);
+  return (Array.isArray(project.media) ? project.media : [])
+    .filter((item) => item?.src && IMAGE_PATTERN.test(item.src))
+    .slice(0, 60);
+}
+
+function unique(values = []) {
+  return Array.from(new Set(values.map((value) => String(value || "").trim()).filter(Boolean)));
+}
+
+function sceneLabel(tags = []) {
+  const labels = [
+    ["웨딩무드", "웨딩 무드"],
+    ["한복", "한복 스냅"],
+    ["반려동물", "반려동물 스냅"],
+    ["동물스냅", "동물 스냅"],
+    ["바다", "바다 인물 스냅"],
+    ["카페", "카페 포트레이트"],
+    ["네온", "야간 네온 스냅"],
+    ["밤", "야간 인물 스냅"],
+    ["플라워", "플라워 포트레이트"],
+    ["거리", "거리 인물 스냅"],
+    ["프로필", "프로필 포트레이트"]
+  ];
+  return labels.find(([tag]) => tags.includes(tag))?.[1] || "인물 스냅";
+}
+
+function splitInstagramArchive(project, media, projectIndex) {
+  const groups = [];
+  for (let start = 0; start < media.length; start += INSTAGRAM_CARD_SIZE) {
+    const chunk = media.slice(start, start + INSTAGRAM_CARD_SIZE);
+    if (!chunk.length) continue;
+    const models = unique(chunk.flatMap((item) => item.models || []));
+    const tags = unique(chunk.flatMap((item) => item.tags || []));
+    const label = sceneLabel(tags);
+    const owner = models[0] ? `@${String(models[0]).replace(/^@/, "")} · ` : "";
+    const part = String(Math.floor(start / INSTAGRAM_CARD_SIZE) + 1).padStart(2, "0");
+    groups.push({
+      ...project,
+      id: `${project.id || `instagram-${projectIndex}`}-grid-${part}`,
+      title: `${owner}${label}`,
+      subtitle: "@365daily.snap",
+      description: "Instagram 메인 그리드 순서에 맞춰 구성한 촬영 시리즈입니다.",
+      category: "Instagram",
+      tags,
+      models,
+      cover: chunk[0]?.src || "",
+      media: chunk
+    });
+  }
+  return groups;
 }
 
 function prepareContent(raw) {
-  const projects = (Array.isArray(raw.projects) ? raw.projects : [])
-    .map((project) => {
-      const media = selectMedia(project);
-      return { ...project, cover: media[0]?.src || "", media };
-    })
-    .filter((project) => project.media.length > 0);
+  const projects = [];
+  (Array.isArray(raw.projects) ? raw.projects : []).forEach((project, projectIndex) => {
+    const media = selectMedia(project);
+    if (!media.length) return;
+    const isArchive = /archive|아카이브/i.test(`${project.title || ""} ${project.category || ""}`) && media.length > 8;
+    if (isArchive) {
+      projects.push(...splitInstagramArchive(project, media, projectIndex));
+      return;
+    }
+    projects.push({ ...project, cover: project.cover || media[0]?.src || "", media });
+  });
   return { ...raw, projects, portfolioItems: [] };
 }
 
@@ -89,7 +134,10 @@ async function loadPortfolio() {
   } catch (error) {
     if (await exists(destination)) {
       console.warn(`Source unavailable; using local portfolio.json: ${error.message}`);
-      return JSON.parse(await readFile(destination, "utf8"));
+      const raw = JSON.parse(await readFile(destination, "utf8"));
+      const content = prepareContent(raw);
+      await saveContent(destination, content);
+      return content;
     }
     console.warn(`Source unavailable; using Instagram fallback: ${error.message}`);
     await saveContent(destination, FALLBACK_CONTENT);
