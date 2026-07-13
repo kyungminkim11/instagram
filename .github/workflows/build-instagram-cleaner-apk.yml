@@ -1,0 +1,84 @@
+name: Build Instagram Cleaner APK
+
+on:
+  push:
+    branches:
+      - agent/mobile-apk-build
+    paths:
+      - 'mobile-build/instagram-like-cleaner-v2.7.0-mobile-wear-source.zip'
+      - '.github/workflows/build-instagram-cleaner-apk.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check source package
+        run: test -f mobile-build/instagram-like-cleaner-v2.7.0-mobile-wear-source.zip
+
+      - name: Extract source
+        run: |
+          rm -rf build-source
+          mkdir -p build-source
+          unzip -q mobile-build/instagram-like-cleaner-v2.7.0-mobile-wear-source.zip -d build-source
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 35
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager 'platforms;android-35' 'build-tools;35.0.0' 'platform-tools'
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build phone and watch APKs
+        working-directory: build-source/instagram-like-cleaner-extension-v2.7.0/android
+        run: gradle --no-daemon :mobile:assembleDebug :wear:assembleDebug --stacktrace
+
+      - name: Collect APK files
+        run: |
+          mkdir -p apk-output
+          cp build-source/instagram-like-cleaner-extension-v2.7.0/android/mobile/build/outputs/apk/debug/mobile-debug.apk apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk
+          cp build-source/instagram-like-cleaner-extension-v2.7.0/android/wear/build/outputs/apk/debug/wear-debug.apk apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk
+          sha256sum apk-output/*.apk > apk-output/SHA256SUMS.txt
+
+      - name: Upload phone APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-cleaner-mobile-apk
+          path: apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload watch APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-cleaner-wear-apk
+          path: apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-checksums
+          path: apk-output/SHA256SUMS.txt
+          retention-days: 30
