@@ -26,8 +26,8 @@ jobs:
 
       - name: Extract source
         run: |
-          rm -rf build-source
-          mkdir -p build-source
+          rm -rf build-source apk-output build-logs
+          mkdir -p build-source apk-output build-logs
           unzip -q mobile-build/instagram-like-cleaner-v2.7.0-mobile-wear-source.zip -d build-source
 
       - name: Set up Java 17
@@ -49,36 +49,111 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build phone and watch APKs
+      - name: Build phone APK
+        id: build_phone
+        continue-on-error: true
         working-directory: build-source/instagram-like-cleaner-extension-v2.7.0/android
-        run: gradle --no-daemon :mobile:assembleDebug :wear:assembleDebug --stacktrace
-
-      - name: Collect APK files
+        shell: bash
         run: |
-          mkdir -p apk-output
-          cp build-source/instagram-like-cleaner-extension-v2.7.0/android/mobile/build/outputs/apk/debug/mobile-debug.apk apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk
-          cp build-source/instagram-like-cleaner-extension-v2.7.0/android/wear/build/outputs/apk/debug/wear-debug.apk apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk
-          sha256sum apk-output/*.apk > apk-output/SHA256SUMS.txt
+          set +e
+          gradle --no-daemon :mobile:assembleDebug --console=plain 2>&1 | tee "$GITHUB_WORKSPACE/build-logs/mobile.log"
+          status=${PIPESTATUS[0]}
+          if [ -f mobile/build/outputs/apk/debug/mobile-debug.apk ]; then
+            cp mobile/build/outputs/apk/debug/mobile-debug.apk "$GITHUB_WORKSPACE/apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk"
+          fi
+          exit $status
+
+      - name: Build watch APK
+        id: build_watch
+        continue-on-error: true
+        working-directory: build-source/instagram-like-cleaner-extension-v2.7.0/android
+        shell: bash
+        run: |
+          set +e
+          gradle --no-daemon :wear:assembleDebug --console=plain 2>&1 | tee "$GITHUB_WORKSPACE/build-logs/wear.log"
+          status=${PIPESTATUS[0]}
+          if [ -f wear/build/outputs/apk/debug/wear-debug.apk ]; then
+            cp wear/build/outputs/apk/debug/wear-debug.apk "$GITHUB_WORKSPACE/apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk"
+          fi
+          exit $status
+
+      - name: Write build summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## APK build results'
+            echo
+            if [ -f apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk ]; then
+              echo '✅ **Phone APK built successfully**'
+            else
+              echo '❌ **Phone APK failed**'
+            fi
+            if [ -f apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk ]; then
+              echo '✅ **Watch APK built successfully**'
+            else
+              echo '❌ **Watch APK failed**'
+            fi
+            echo
+            for module in mobile wear; do
+              log="build-logs/${module}.log"
+              echo "### ${module} error summary"
+              if [ -f "$log" ]; then
+                echo '```text'
+                grep -n -E 'FAILURE:|What went wrong|Execution failed for task|A problem occurred|Could not resolve|Could not find|error:|uses-sdk|minSdk|Manifest merger failed|Android resource linking failed' "$log" | tail -n 80 || tail -n 80 "$log"
+                echo '```'
+              else
+                echo 'No log was generated.'
+              fi
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create checksums
+        if: always()
+        shell: bash
+        run: |
+          if compgen -G 'apk-output/*.apk' > /dev/null; then
+            sha256sum apk-output/*.apk > apk-output/SHA256SUMS.txt
+          fi
 
       - name: Upload phone APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: instagram-cleaner-mobile-apk
           path: apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk
-          if-no-files-found: error
+          if-no-files-found: ignore
           retention-days: 30
 
       - name: Upload watch APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: instagram-cleaner-wear-apk
           path: apk-output/Instagram-Like-Cleaner-Wear-v2.7.0.apk
-          if-no-files-found: error
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: instagram-cleaner-build-logs
+          path: build-logs/*.log
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Upload checksums
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: apk-checksums
           path: apk-output/SHA256SUMS.txt
+          if-no-files-found: ignore
           retention-days: 30
+
+      - name: Require phone APK
+        if: always()
+        shell: bash
+        run: |
+          test -f apk-output/Instagram-Like-Cleaner-Mobile-v2.7.0.apk
